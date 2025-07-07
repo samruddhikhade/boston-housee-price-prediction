@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Boston Housing Price Prediction</title>
+   <style>
+    
+       :root {
+           --primary-color: #3498db;
+           --secondary-color: #2980b9;
+           --accent-color: #e74c3c;
+           --light-color: #ecf0f1;
+           --dark-color: #2c3e50;
+           --success-color: #2ecc71;
+       }
+       
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+       }
+       
+       body {
+           background-color: #f5f7fa;
+           color: var(--dark-color);
+           line-height: 1.6;
+           padding: 20px;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           min-height: 100vh;
+       }
+       
+       h2 {
+           color: var(--primary-color);
+           margin: 20px 0;
+           text-align: center;
+           font-size: 2.2rem;
+           text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+       }
+       
+       form {
+           background: white;
+           padding: 30px;
+           border-radius: 10px;
+           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+           width: 100%;
+           max-width: 600px;
+           margin-bottom: 30px;
+       }
+       
+       label {
+           display: block;
+           margin: 15px 0 5px;
+           color: var(--dark-color);
+           font-weight: 500;
+       }
+       
+       input[type="text"] {
+           width: 100%;
+           padding: 12px;
+           border: 2px solid #ddd;
+           border-radius: 5px;
+           font-size: 16px;
+           transition: border 0.3s;
+       }
+       
+       input[type="text"]:focus {
+           border-color: var(--primary-color);
+           outline: none;
+           box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+       }
+       
+       input[type="submit"] {
+           background-color: var(--primary-color);
+           color: white;
+           border: none;
+           padding: 12px 25px;
+           font-size: 16px;
+           border-radius: 5px;
+           cursor: pointer;
+           margin-top: 20px;
+           width: 100%;
+           font-weight: bold;
+           text-transform: uppercase;
+           letter-spacing: 1px;
+           transition: background-color 0.3s, transform 0.2s;
+       }
+       
+       input[type="submit"]:hover {
+           background-color: var(--secondary-color);
+           transform: translateY(-2px);
+       }
+       
+       input[type="submit"]:active {
+           transform: translateY(0);
+       }
+       
+       h3 {
+           color: var(--accent-color);
+           margin: 20px 0;
+           text-align: center;
+           font-size: 1.5rem;
+           padding: 15px;
+           background-color: rgba(231, 76, 60, 0.1);
+           border-radius: 5px;
+           width: 100%;
+           max-width: 600px;
+       }
+       
+       /* Responsive design */
+       @media (max-width: 768px) {
+           form {
+               padding: 20px;
+           }
+           
+           h2 {
+               font-size: 1.8rem;
+           }
+       }
+       
+       /* Animation for the prediction result */
+       @keyframes fadeIn {
+           from { opacity: 0; transform: translateY(20px); }
+           to { opacity: 1; transform: translateY(0); }
+       }
+       
+       h3 {
+           animation: fadeIn 0.5s ease-out forwards;
+       }
+       
+       /* Tooltip for labels */
+       label {
+           position: relative;
+       }
+       
+       label:hover::after {
+           content: attr(data-tooltip);
+           position: absolute;
+           left: 0;
+           top: 100%;
+           background: var(--dark-color);
+           color: white;
+           padding: 5px 10px;
+           border-radius: 5px;
+           font-size: 14px;
+           z-index: 10;
+           white-space: nowrap;
+       }
+   </style>
+ </head>
+<body>
+    <h2>Boston Housing Price Prediction</h2>
+    <form action="/predict" method="post">
+        <label>CRIM: </label><br>
+        <input type="text" name="CRIM"><br>
+
+        <label>ZN: </label><br>
+        <input type="text" name="ZN"><br>
+
+        <label>INDUS: </label><br>
+        <input type="text" name="INDUS"><br>
+
+        <label>CHAS:</label><br> 
+        <input type="text" name="CHAS"><br> 
+        
+        <label>NOX:</label><br>
+        <input type="text" name="NOX"><br>
+        
+        <label>RM:</label><br>
+        <input type="text" name ="RM"><br>
+        
+        <label>AGE:</label><br>
+        <input type="text" name="AGE"><br>
+        
+        <label>DIS:</label><br>
+        <input type="text" name="DIS"><br>
+        
+        <label>RAD:</label><br>
+        <input type="text" name="RAD"><br>
+
+        <label>TAX: </label><br>
+        <input type="text" name="TAX"><br>
+
+        <label>PTRATIO: </label><br>
+        <input type="text" name="PTRATIO"><br>
+
+        <label>B: </label><br>
+        <input type="text" name="B"><br>
+
+        <label>LSTAT: </label><br>
+        <input type="text" name="LSTAT"><br>
+
+        <br>
+        <input type="submit" value="Predict">
+
+    </form>
+
+    {% if prediction_text %}
+       <h3>{{prediction_text }}</h3>
+    {% endif %}
+
+</body>
+</html>
